@@ -14,11 +14,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '4.0'
-          bundler-cache: true
 
-      - name: Run tests
-        run: bundle exec rspec
+      - name: Build Docker Image
+        run: docker build -t calculator .
+
+      - name: Run tests inside the Image
+        run: docker run --rm calculator bundle exec rspec
+
+      # - name: Set up Ruby
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: '4.0'
+      #     bundler-cache: true
+
+      # - name: Run tests
+      #   run: bundle exec rspec
