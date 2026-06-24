@@ -4,8 +4,7 @@ RSpec.describe Calculator do
   let(:calc) {Calculator.new}
   describe "Add" do
     it 'adds two numbers' do
-      # expect(calc.add(10, 20)).to eq(30)
-      expect(calc.add(10, 20)).to eq(0)
+      expect(calc.add(10, 20)).to eq(30)
     end
   end
 end
