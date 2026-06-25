@@ -36,7 +36,7 @@ jobs:
           path: reports/results.txt
 
       - name: Print api API_KEY
-        run: echo "my api key is :$API_KEY"
+        run: echo "my api key is $API_KEY"
 
       # - name: Run tests inside the Image
       #   run: docker run --rm calculator bundle exec rspec
