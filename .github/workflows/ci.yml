@@ -12,6 +12,7 @@ jobs:
 
     env:
       RAILS_ENV: test
+      API_KEY: ${{ secrets.MY_API_KEY }}
 
     steps:
       - name: Checkout code
@@ -27,7 +28,7 @@ jobs:
       - name: Run tests inside the Image
         # run: docker run --rm -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
         run: docker run --rm -e RAILS_ENV=$RAILS_ENV -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
-        
+
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
