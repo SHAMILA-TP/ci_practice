@@ -26,10 +26,7 @@ jobs:
         run: mkdir -p reports
 
       - name: Run tests inside the Image
-        # run: docker run --rm -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
-        # run: docker run --rm -e RAILS_ENV=$RAILS_ENV -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
-          run: docker run --rm -e RAILS_ENV=$RAILS_ENV -e API_KEY=$API_KEY -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
-      - name: Upload test report
+        run: docker run --rm -e RAILS_ENV=$RAILS_ENV -e API_KEY=$API_KEY -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
         uses: actions/upload-artifact@v4
         with:
           name: rspec-results
