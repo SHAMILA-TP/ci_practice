@@ -25,17 +25,17 @@ jobs:
       - name: Build Docker Image
         run: docker build -t calculator --build-arg RUBY_VERSION=${{matrix.ruby-version}} .
 
-      - name: Create reports folder
-        run: mkdir -p reports
+      # - name: Create reports folder
+      #   run: mkdir -p reports
 
       - name: Run tests inside the Image
         run: docker run --rm -e RAILS_ENV=$RAILS_ENV -e API_KEY=$API_KEY -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
 
-      - name: Upload test report
-        uses: actions/upload-artifact@v4
-        with:
-          name: rspec-results
-          path: reports/results.txt
+      # - name: Upload test report
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: rspec-results
+      #     path: reports/results.txt
 
-      - name: Print API_KEY
-        run: echo "my api key is $API_KEY"
+      # - name: Print API_KEY
+      #   run: echo "my api key is $API_KEY"
