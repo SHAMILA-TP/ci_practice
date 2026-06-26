@@ -26,7 +26,7 @@ jobs:
         run: docker build -t calculator . #--build-arg RUBY_VERSION=${{matrix.ruby-version}} .
 
       - name: Run rubocop
-        run: docker run rm calculator bundle exec rubocop
+        run: docker run --rm calculator bundle exec rubocop
         continue-on-error: true
 
       # - name: Create reports folder
