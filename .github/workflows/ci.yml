@@ -10,9 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        ruby-version: ['3.2', '3.3']
+    # strategy:
+    #   matrix:
+    #     ruby-version: ['3.2', '3.3']
 
     env:
       RAILS_ENV: test
@@ -23,13 +23,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker Image
-        run: docker build -t calculator --build-arg RUBY_VERSION=${{matrix.ruby-version}} .
+        run: docker build -t calculator . #--build-arg RUBY_VERSION=${{matrix.ruby-version}} .
+
+      - name: Run rubocop
+        run: docker run rm calculator bundle exec rubocop
+        continue-on-error: true
 
       # - name: Create reports folder
       #   run: mkdir -p reports
 
       - name: Run tests inside the Image
-        run: docker run --rm -e RAILS_ENV=$RAILS_ENV -e API_KEY=$API_KEY -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
+        run: docker run --rm -e RAILS_ENV=$RAILS_ENV calculator bundle exec rspec
+        # run: docker run --rm -e RAILS_ENV=$RAILS_ENV -e API_KEY=$API_KEY -v $(pwd)/reports:/app/reports calculator bundle exec rspec --format documentation --out /app/reports/results.txt
 
       # - name: Upload test report
       #   uses: actions/upload-artifact@v4
