@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker Image
-        run: docker build -t calculator:${{github.sha}} . #--build-arg RUBY_VERSION=${{matrix.ruby-version}} .
+        run: docker build -t calculator . #--build-arg RUBY_VERSION=${{matrix.ruby-version}} .
 
       - name: Run rubocop
         run: docker run --rm calculator bundle exec rubocop
